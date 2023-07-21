@@ -17,13 +17,16 @@ pub trait StateMachine {
 
 
 // Simple helper to do some hashing.
-fn hash<T>(t: &T) -> u64 {
-    todo!("Final Project");
+pub fn hash<T: Hash>(t: &T) -> u64 {
+    let mut hasher = std::collections::hash_map::DefaultHasher::new();
+    t.hash(&mut hasher);
+    hasher.finish()
 }
 
 // Test for hash function 
 #[test]
 fn test_hash_enum_vec() {
+    #[derive(Hash)]
     enum KeyTest{
         One,
         Two,
